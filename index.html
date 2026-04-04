@@ -1119,7 +1119,7 @@
           <span>Альфия</span>
         </h1>
 
-        <p class="hero-copy">«Итак, что Бог сочетал, того человек да не разлучает.» — Мар 10:9</p>
+        <p class="hero-copy">«Итак, что Бог сочетал, того человек да не разлучает»<br>Мар 10:9</p>
 
         <p class="hero-date-line" aria-label="Дата свадьбы">
           <span class="hero-date-line__part">26</span>
@@ -1196,36 +1196,28 @@
           </div>
           <div class="timeline__desc">Общее фото, тёплые объятия и добрые пожелания на прощание.</div>
         </li>
-        <li>
-          <div class="timeline__header">
-            <span class="timeline__time">20:00</span>
-            <span class="timeline__sep">—</span>
-            <span class="timeline__title">Молодежный вечер</span>
-          </div>
-          <div class="timeline__desc">Продолжаем вечер в кругу молодёжи: общение и радость торжества.</div>
-        </li>
       </ul>
     </article>
 
     <article class="content-section" aria-labelledby="dresscode-title">
       <h2 id="dresscode-title">Дресс-код</h2>
-      <p>Мы будем рады, если ваш наряд будет в тонах нашей весенней палитры. Избегайте белого и чёрного — оставим эти
+      <p>Мы будем рады, если ваш наряд будет в тонах нашей палитры. Избегайте белого и чёрного — оставим эти
         цвета для особых ролей в этот день.</p>
       <div class="dress-swatches">
         <div class="swatch">
-          <div class="swatch__dot" style="background:#BFDDE6;"></div>
+          <div class="swatch__dot" style="background:#AB8D6F;"></div>
         </div>
         <div class="swatch">
-          <div class="swatch__dot" style="background:#F6CBDD;"></div>
+          <div class="swatch__dot" style="background:#896448;"></div>
         </div>
         <div class="swatch">
-          <div class="swatch__dot" style="background:#FAE7A1;"></div>
+          <div class="swatch__dot" style="background:#5D3721;"></div>
         </div>
         <div class="swatch">
-          <div class="swatch__dot" style="background:#CDE8D3;"></div>
+          <div class="swatch__dot" style="background:#482616;"></div>
         </div>
         <div class="swatch">
-          <div class="swatch__dot" style="background:#EBD9B5;"></div>
+          <div class="swatch__dot" style="background:#26150D;"></div>
         </div>
       </div>
     </article>
@@ -1342,6 +1334,10 @@
               <label for="guest-name">Имя</label>
               <input class="rsvp-input" type="text" id="guest-name" name="name" autocomplete="name" required>
             </div>
+            <div class="rsvp-field" id="city-field">
+              <label for="guest-city">Из какого города?</label>
+              <input class="rsvp-input" type="text" id="guest-city" name="city" autocomplete="address-level2" placeholder="Шымкент, Алматы…">
+            </div>
             <div class="rsvp-field" id="program-field">
               <label for="guest-program">Хотите участвовать в программе?</label>
               <input class="rsvp-input" type="text" id="guest-program" name="program"
@@ -1411,7 +1407,7 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    const RSVP_ENDPOINT = "REPLACE_WITH_NEW_APPS_SCRIPT_URL";
+    const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbxcjpENa59YslHMJY91kxELdqM_PIjxr22-0osqrI1l1_jcktQ2zsBEH9GRxy0Om5AA/exec";
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const CONFETTI_COLORS = ["#BFDDE6", "#F6CBDD", "#FAE7A1", "#CDE8D3", "#EBD9B5"];
@@ -1536,12 +1532,15 @@
 
       const submitBtn = document.querySelector("#rsvp-submit");
       const programField = document.querySelector("#program-field");
+      const cityField = document.querySelector("#city-field");
 
       if (choice === "no") {
         if (programField) programField.style.display = "none";
+        if (cityField) cityField.style.display = "none";
         if (submitBtn) submitBtn.textContent = "Отправить ответ";
       } else {
         if (programField) programField.style.display = "";
+        if (cityField) cityField.style.display = "";
         if (submitBtn) submitBtn.textContent = "Отправить";
       }
 
@@ -1575,7 +1574,7 @@
         const payload = {
           attendance: attendance,
           name: String(formData.get("name") || "").trim(),
-          city: "",
+          city: String(formData.get("city") || "").trim(),
           children: 0,
           program: String(formData.get("program") || "").trim(),
           submittedAt: new Date().toISOString(),
